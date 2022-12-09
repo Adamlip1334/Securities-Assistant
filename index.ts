@@ -3,20 +3,36 @@ import {
   Client,
   GatewayIntentBits,
   Collection,
-  ClientApplication,
   InteractionType,
-  Interaction,
   CommandInteraction,
   Partials,
   ButtonInteraction,
   ModalSubmitInteraction,
   SelectMenuInteraction,
 } from "discord.js";
-import fs, { read, readdirSync } from "fs";
-import dotenv, { config } from "dotenv";
+import fs, { readdirSync } from "fs";
+import dotenv from "dotenv";
 import { regCMD } from "./src/deploy-commands";
 import { devConfig } from "./devconfig";
 import path from "node:path";
+
+// logs into robinhood
+
+var credentials = {
+  username: process.env.rhUSERNAME,
+  password: process.env.rhPASSWORD
+};
+
+var Robinhood = require('robinhood')(credentials, function(err: any, data: any){ 
+  Robinhood.quote_data('GOOG', function(error: any, response: any, body: any) {
+    if (error) {
+        console.error(error);
+        process.exit(1);
+    }
+    console.log("Working");
+  });
+
+});
 
 dotenv.config();
 export const client: any = new Client({
@@ -183,6 +199,7 @@ client.login(process.env.TOKEN);
 client.on("ready", async () => {
   console.log(
     `The bot is up! Logged in as ${client.user?.tag} at ${client.readyAt}`
+    
   );
   if (devConfig.registerCmd === true) {
     regCMD(client.user.id);

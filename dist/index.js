@@ -34,6 +34,20 @@ const dotenv_1 = __importDefault(require("dotenv"));
 const deploy_commands_1 = require("./src/deploy-commands");
 const devconfig_1 = require("./devconfig");
 const node_path_1 = __importDefault(require("node:path"));
+// logs into robinhood
+var credentials = {
+    username: process.env.rhUSERNAME,
+    password: process.env.rhPASSWORD
+};
+var Robinhood = require('robinhood')(credentials, function (err, data) {
+    Robinhood.quote_data('GOOG', function (error, response, body) {
+        if (error) {
+            console.error(error);
+            process.exit(1);
+        }
+        console.log("Working");
+    });
+});
 dotenv_1.default.config();
 exports.client = new discord_js_1.Client({
     intents: [

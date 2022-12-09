@@ -1,8 +1,8 @@
 {
-  "name": "analog-ts",
+  "name": "securities-assistant-ts",
   "version": "1.1.0",
   "description": "",
-  "main": "index.js",
+  "main": "index.ts",
   "scripts": {
     "lint": "eslint . --ext .ts",
     "watch": "tsc -w",
@@ -27,6 +27,7 @@
     "eslint-plugin-jsdoc": "^39.3.3",
     "node-fetch": "^3.2.10",
     "nodemon": "^2.0.20",
+    "robinhood": "^1.8.0",
     "ts-node": "^10.9.1",
     "typescript": "^4.8.4"
   }
